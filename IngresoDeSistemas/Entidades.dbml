@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inicio_sesion" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-EA6PGBP;Initial Catalog=inicio_sesion;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="inicio_sesionConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.personas" Member="personas">
+    <Type Name="personas">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="telefono" Type="System.String" DbType="Char(11) NOT NULL" CanBeNull="false" />
+      <Column Name="direccion" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="idusuarios" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cedula" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="personas_roles" Member="roles" ThisKey="id" OtherKey="idpersonas" Type="roles" />
+      <Association Name="usuario_personas" Member="usuario" ThisKey="idusuarios" OtherKey="id" Type="usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.roles" Member="roles">
+    <Type Name="roles">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="idpersonas" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="personas_roles" Member="personas" ThisKey="idpersonas" OtherKey="id" Type="personas" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.usuario" Member="usuario">
+    <Type Name="usuario">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="correo" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="usuario_personas" Member="personas" ThisKey="id" OtherKey="idusuarios" Type="personas" />
+    </Type>
+  </Table>
+</Database>
